@@ -19,10 +19,21 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
+
+
     this.x = this.x + this.speed * dt;
     if (this.x >= 500) {
         this.x = 0;
     };
+
+    this.xSpan = this.x + 171;
+    if (this.x <= player.x && this.xSpan >= player.x && this.y == player.y) {
+        console.log("collision");
+    };
+
+    // console.log(this.xSpan >= player.x);
+    // console.log(this.x <= player.x);
+    // console.log("this.xSpan: "+this.xSpan+"this.x: "+this.x+" player.x: "+player.x);
 }
 
 // Draw the enemy on the screen, required method for game
@@ -36,15 +47,27 @@ Enemy.prototype.render = function() {
 var Player = function(startX, startY) {
     this.sprite = 'images/char-boy.png';
 
+    this.startX = startX;
+    this.startY = startY;
+
     this.x = startX;
     this.y = startY;
 }
 
-Player.prototype.update = function(dt) {
-    this.x = this.x;
+Player.prototype.update = function() {
     if (this.x >= 500) {
         this.x = 0;
+    }else if (this.x < 0) {
+        this.x = 400;
+    }else if (this.y <= 5) {
+        this.reset();
     };
+
+};
+
+Player.prototype.reset = function() {
+    this.x = this.startX;
+    this.y = this.startY;
 };
 
 Player.prototype.render = function() {
@@ -52,11 +75,20 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(input) {
-    if (input = 37) {
-        this.x = this.x + 30;
-    };
-
-    this.update;
+    switch(input) {
+        case "left":
+            this.x = this.x - 100;
+            break;
+        case "right":
+            this.x = this.x + 100;
+            break;
+        case "up":
+            this.y = this.y - 90;
+            break;
+        case "down":
+            this.y = this.y + 90;
+            break;
+    }
 };
 
 
@@ -65,8 +97,9 @@ Player.prototype.handleInput = function(input) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var allEnemies = [new Enemy(0, 53, 75), new Enemy(0, 143, 150), new Enemy(0, 233, 30)];
-var player = new Player(200, 400);
+var allEnemies = [new Enemy(0, 230, 100)];
+//var allEnemies = [new Enemy(0, 50, 300), new Enemy(0, 140, 200), new Enemy(0, 230, 100)];
+var player = new Player(200, 410);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
