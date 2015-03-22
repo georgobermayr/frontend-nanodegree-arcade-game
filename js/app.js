@@ -1,5 +1,6 @@
 // Enemies our player must avoid
 var Enemy = function(startY) {
+    "use strict";
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -13,11 +14,12 @@ var Enemy = function(startY) {
     this.x = Math.random() * (500 - 0) + 0;
     this.y = startY;
     this.speed = Math.random() * (500 - 100) + 100;
-}
+};
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+    "use strict";
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -31,7 +33,7 @@ Enemy.prototype.update = function(dt) {
     // from left to right again.
     if (this.x >= 500) {
         this.x = 0;
-    };
+    }
 
     // Declare a span parameter in x dimension. This is used to
     // caluculate collisions with the player based on the content
@@ -52,20 +54,22 @@ Enemy.prototype.update = function(dt) {
 
         // Get the current counter value as a number
         // Subtract 300 points to the counter for colliding with an enemy.
-        currentCounter = Number(document.getElementById('counter').innerHTML);
-        document.getElementById('counter').innerHTML = currentCounter - 300;
-    };
-}
+        this.currentCounter = Number(document.getElementById('counter').innerHTML);
+        document.getElementById('counter').innerHTML = this.currentCounter - 300;
+    }
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
+    "use strict";
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function(startX, startY) {
+    "use strict";
     // The image/sprite for the player, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/char-boy.png';
@@ -77,9 +81,10 @@ var Player = function(startX, startY) {
     // Set the inital start coordiantes.
     this.x = startX;
     this.y = startY;
-}
+};
 
 Player.prototype.update = function() {
+    "use strict";
     // Declare a RealStart variable to define the real beginning of
     // the player without transparent pixels in the sprite. This is
     // used for better collision handling.
@@ -113,25 +118,27 @@ Player.prototype.update = function() {
 
         // Get the current counter value as a number
         // Add 500 new points to the counter for reaching the goal.
-        currentCounter = Number(document.getElementById('counter').innerHTML);
-        document.getElementById('counter').innerHTML = currentCounter + 500;
-    };
-}
+        this.currentCounter = Number(document.getElementById('counter').innerHTML);
+        document.getElementById('counter').innerHTML = this.currentCounter + 500;
+    }
+};
 
 Player.prototype.reset = function() {
+    "use strict";
     // Handles reset to initial starting position.
     // Used for collisions and if player reached its goal.
     this.x = this.startX;
     this.y = this.startY;
-}
+};
 
 // Draw the player on the screen, required method for game
 Player.prototype.render = function() {
+    "use strict";
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Player.prototype.handleInput = function(input) {
-
+    "use strict";
     // Declare the horizontal and vertical movement deltas
     // to let the player move in relation to the grid.
     this.horizontalDelta = 100;
@@ -152,11 +159,12 @@ Player.prototype.handleInput = function(input) {
         case 'down':
             this.y = this.y + this.verticalDelta;
             break;
-    };
-}
+    }
+};
 
 // Gems our player can collect
 var Gem = function(startY) {
+    "use strict";
     // The image/sprite for our gem, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/Gem Orange.png';
@@ -166,11 +174,12 @@ var Gem = function(startY) {
     // Y coordinate is picked from the new gem call.
     this.x = Math.random() * (500 - 0) + 0;
     this.y = startY;
-}
+};
 
 // Update the gems position, required method for game
 // Parameter: dt, a time delta between ticks
 Gem.prototype.update = function(dt) {
+    "use strict";
     // Declare a span parameter in x dimension. This is used to
     // caluculate collectings of the player based on the content
     // of the sprite. The 98 px are based on the actucal content of
@@ -190,22 +199,24 @@ Gem.prototype.update = function(dt) {
 
         // Get the current counter value as a number
         // Add 100 new points to the counter for collecting the gem.
-        currentCounter = Number(document.getElementById('counter').innerHTML);
-        document.getElementById('counter').innerHTML = currentCounter + 100;
-    };
-}
+        this.currentCounter = Number(document.getElementById('counter').innerHTML);
+        document.getElementById('counter').innerHTML = this.currentCounter + 100;
+    }
+};
 
 // Draw the gem on the screen, required method for game
 Gem.prototype.render = function() {
+    "use strict";
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Gem.prototype.reset = function() {
+    "use strict";
     // Handles removing of the gem from the canvas.
     // Used for collections.
     this.x = -100;
     this.y = -100;
-}
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
